@@ -38,6 +38,7 @@ namespace AlphaStack.Tbp {
                 stderr = botProcess.StandardError;
 
                 logger?.Dispose();
+                Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "Logs"));
                 var logFilePath = Path.Combine(Environment.CurrentDirectory, $"Logs/bot{id}.log");
                 if (File.Exists(logFilePath)) {
                     var prevLogFilePath = Path.Combine(Environment.CurrentDirectory, $"Logs/bot{id}_prev.log");
