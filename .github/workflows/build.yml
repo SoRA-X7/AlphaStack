@@ -33,6 +33,7 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: AlphaStack
+          buildMethod: AlphaStack.Editor.BuildScript.Build
       - uses: actions/upload-artifact@v2
         with:
           name: AlphaStack for ${{ matrix.targetPlatform }}
