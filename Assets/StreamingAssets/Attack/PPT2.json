@@ -1,0 +1,9 @@
+{
+  "lineClears": [0, 0, 1, 2, 4],
+  "fullSpinClears": [0, 2, 4, 6],
+  "miniSpinClears": [0, 0, 1],
+  "comboBonus": [0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 5],
+  "b2bBonus": 1,
+  "allClear": 10,
+  "stackAllClear": false
+}
