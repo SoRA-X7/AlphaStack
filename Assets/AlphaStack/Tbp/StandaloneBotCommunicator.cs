@@ -11,7 +11,6 @@ namespace AlphaStack.Tbp {
         private string executable;
         private Process botProcess;
         private StreamReader stdout;
-        private StreamReader stderr;
         private StreamWriter stdin;
 
         private StreamWriter logger;
@@ -35,7 +34,6 @@ namespace AlphaStack.Tbp {
                 botProcess = Process.Start(start);
                 stdin = botProcess.StandardInput;
                 stdout = botProcess.StandardOutput;
-                stderr = botProcess.StandardError;
 
                 logger?.Dispose();
                 Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "Logs"));
@@ -53,6 +51,7 @@ namespace AlphaStack.Tbp {
                 logger.AutoFlush = true;
 
                 botProcess.ErrorDataReceived += (_, err) => { logger.Write(err.Data); };
+                botProcess.BeginErrorReadLine();
                 return true;
             } catch (Win32Exception ex) {
                 Debug.LogError(ex);
