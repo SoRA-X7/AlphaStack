@@ -22,6 +22,7 @@ namespace AlphaStack.Tbp {
 
     [Serializable]
     public class RulesMessage : FrontendMessage {
+        public string randomizer;
         public RulesMessage() : base(KeyRules) { }
     }
 
@@ -32,6 +33,7 @@ namespace AlphaStack.Tbp {
         public int combo;
         public bool back_to_back;
         public List<List<string>> board;
+        public RandomizerObject randomizer;
 
         public StartMessage(Field field) : base(KeyStart) {
             hold = field.HoldPiece?.name;
@@ -39,6 +41,7 @@ namespace AlphaStack.Tbp {
             combo = field.Ren;
             back_to_back = field.BackToBack;
             board = field.ConvertToBoard();
+            randomizer = RandomizerObject.Create(field.PieceGenerator);
         }
     }
 

@@ -44,6 +44,7 @@ namespace AlphaStack.Game {
 
                 return p;
             }));
+            rules.pieceGenerator = new BagPieceGenerator(rules.piecesInUse);
             rules.attackTable = AttackTable.Registry["PPT2"];
             foreach (var player in players) {
                 if (!player.SetRules(rules)) {

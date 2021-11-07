@@ -13,7 +13,7 @@ namespace AlphaStack.Game {
             this.shared = shared;
         }
 
-        public SyncedPieceGenerator Clone() {
+        public SyncedPieceGenerator Share() {
             return new SyncedPieceGenerator(shared);
         }
 
@@ -23,9 +23,16 @@ namespace AlphaStack.Game {
             }
         }
 
+        public IPieceGenerator Clone() {
+            return (IPieceGenerator)MemberwiseClone();
+        }
+
+        public string TbpType => shared.origin.TbpType;
+        public IPieceGenerator Internal => shared.origin;
+
         private class Shared {
-            private readonly IPieceGenerator origin;
-            private readonly List<Piece> generated;
+            public readonly IPieceGenerator origin;
+            public readonly List<Piece> generated;
 
             public Shared(IPieceGenerator origin) {
                 this.origin = origin;
