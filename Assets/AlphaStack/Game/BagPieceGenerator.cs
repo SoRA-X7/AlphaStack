@@ -3,9 +3,15 @@ using System.Collections.Generic;
 
 namespace AlphaStack.Game {
     public class BagPieceGenerator : IPieceGenerator {
-        private List<Piece> bag;
-        private List<Piece> template;
+        public List<Piece> bag;
+        public List<Piece> template;
         private Random rng;
+        
+        private BagPieceGenerator(List<Piece> bag, List<Piece> template) {
+            this.template = new List<Piece>(bag);
+            this.bag = new List<Piece>(template);
+            this.rng = new Random();
+        }
 
         public BagPieceGenerator(List<Piece> bag) {
             rng = new Random();
@@ -22,5 +28,11 @@ namespace AlphaStack.Game {
             }
             return taken;
         }
+
+        public IPieceGenerator Clone() {
+            return new BagPieceGenerator(bag, template);
+        }
+
+        public string TbpType => "seven_bag";
     }
 }

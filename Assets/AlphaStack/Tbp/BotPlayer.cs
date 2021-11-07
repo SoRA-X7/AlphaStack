@@ -29,8 +29,8 @@ namespace AlphaStack.Tbp {
 
         public override bool SetRules(GameRules rules) {
             if (!Launched) return false;
-            field = new Field(new BagPieceGenerator(rules.piecesInUse), rules.attackTable, new DelaysConfig());
-            bot.SetRules();
+            field = new Field(rules.pieceGenerator.Clone(), rules.attackTable, new DelaysConfig());
+            bot.SetRules(rules);
             return true;
         }
 

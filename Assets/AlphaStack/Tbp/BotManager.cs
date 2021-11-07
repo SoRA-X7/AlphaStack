@@ -44,8 +44,8 @@ namespace AlphaStack.Tbp {
             runner = Receive();
         }
 
-        public void SetRules() {
-            Send(new RulesMessage());
+        public void SetRules(GameRules rules) {
+            Send(new RulesMessage { randomizer = rules.pieceGenerator.TbpType });
         }
 
         public void Start(Field f) {
@@ -77,6 +77,7 @@ namespace AlphaStack.Tbp {
                 Status = BotStatus.None;
                 return;
             }
+
             quitSent = true;
             Send(new FrontendMessage(FrontendMessage.KeyQuit));
             Status = BotStatus.None;
@@ -102,6 +103,7 @@ namespace AlphaStack.Tbp {
                     if (!quitSent) {
                         errors.Enqueue("Bot unexpectedly quit");
                     }
+
                     quitSent = false;
                     Status = BotStatus.None;
                     return;
@@ -158,7 +160,8 @@ namespace AlphaStack.Tbp {
             pendingSuggestion = true;
             moveFound = new UniTaskCompletionSource<BotMoveResult>();
             moveFindTask = moveFinder.FindValidPlacements(
-                field.CopyGrid(), field.CurrentPiece.Value.piece, field.HoldPiece ?? field.next.First(), new PieceSpawner());
+                field.CopyGrid(), field.CurrentPiece.Value.piece, field.HoldPiece ?? field.next.First(),
+                new PieceSpawner());
             Send(new FrontendMessage(FrontendMessage.KeySuggest));
             return await moveFound.Task;
         }

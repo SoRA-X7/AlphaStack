@@ -22,7 +22,7 @@ namespace AlphaStack.Game {
 
         private Vector2Int size = new Vector2Int(10, 40);
         private Vector2Int spawnPosition = new Vector2Int(4, 19);
-        private IPieceGenerator pieceGenerator;
+        public IPieceGenerator PieceGenerator { get; }
         private AttackTable attackTable;
         private DelaysConfig delays;
         private FallingPiece? currentPiece;
@@ -47,7 +47,7 @@ namespace AlphaStack.Game {
 
         public Field(IPieceGenerator pieceGenerator, AttackTable attackTable, DelaysConfig delays) {
             grid = new Grid(size);
-            this.pieceGenerator = pieceGenerator;
+            this.PieceGenerator = pieceGenerator;
             this.attackTable = attackTable;
             this.delays = delays;
             next = new Queue<Piece>();
@@ -82,7 +82,7 @@ namespace AlphaStack.Game {
         }
 
         private void FulfillNext() {
-            var newPiece = pieceGenerator.Next();
+            var newPiece = PieceGenerator.Next();
             next.Enqueue(newPiece);
             OnNewPiece?.Invoke(newPiece);
         }
